@@ -5,7 +5,8 @@ namespace Galoa\ExerciciosPhp2022\War\GamePlay\Country;
 /**
  * Defines a country, that is also a player.
  */
-interface CountryInterface {
+interface CountryInterface
+{
 
   /**
    * Gets the name of a country.
@@ -84,4 +85,5 @@ interface CountryInterface {
    */
   public function killTroops(int $killedTroops): void;
 
+  public function nextRound(): void;
 }

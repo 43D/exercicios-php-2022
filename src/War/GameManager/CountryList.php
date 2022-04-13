@@ -42,7 +42,6 @@ class CountryList {
         return $countries[$countryName];
       }, $neighborNames));
     }
-
     return $countries;
   }
 

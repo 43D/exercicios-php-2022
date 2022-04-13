@@ -17,6 +17,7 @@ class BaseCountry implements CountryInterface
   protected array $neighbors;
   protected bool $conquered;
   protected int $troops;
+  protected array $conqueredCountries;
 
   /**
    * Builder.
@@ -30,6 +31,7 @@ class BaseCountry implements CountryInterface
     $this->conquered = false;
     $this->neighbors = [];
     $this->troops = 3;
+    $this->conqueredCountries = [];
   }
 
   public function getName(): string
@@ -63,6 +65,7 @@ class BaseCountry implements CountryInterface
   }
   public function conquer(CountryInterface $conqueredCountry): void
   {
+    $this->conqueredCountries += [$conqueredCountry->getName() => $conqueredCountry];
     $newneighbors = $conqueredCountry->getNeighbors();
     foreach ($newneighbors as $name => $contry) {
       if (!array_key_exists($name, $this->neighbors) && $name != $this->name) {
@@ -78,5 +81,10 @@ class BaseCountry implements CountryInterface
       $this->troops = 0;
       $this->conquered = true;
     }
+  }
+  public function nextRound(): void
+  {
+    $total = 3 + count($this->conqueredCountries);
+    $this->troops += $total;
   }
 }

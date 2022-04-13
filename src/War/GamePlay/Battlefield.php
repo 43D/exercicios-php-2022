@@ -27,6 +27,16 @@ class Battlefield implements BattlefieldInterface
 
     public function computeBattle(CountryInterface $attackingCountry, array $attackingDice, CountryInterface $defendingCountry, array $defendingDice): void
     {
-        
+        $troopAttacking = 0;
+        $troopDefending = 0;
+        $j = min(count($attackingDice), count($defendingDice));
+        for ($i = 0; $i < $j; $i++) {
+            if ($attackingDice[$i] > $defendingDice[$i])
+                $troopDefending++;
+            else
+                $troopAttacking++;
+        }
+        $attackingCountry->killTroops($troopAttacking);
+        $defendingCountry->killTroops($troopDefending);
     }
 }

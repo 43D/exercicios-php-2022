@@ -136,6 +136,13 @@ class Game
       }
       sleep(1);
     }
+    foreach ($this->getUnconqueredCountries() as $country) {
+      $total = 3;
+      $total += count($country->getNeighbors());
+      $country->killTroops($total * -1);
+    }
+    //add tropas 3 + 1 por conquista
+
   }
 
   /**

@@ -106,8 +106,11 @@ class Game
         $neighbors = $attackingCountry->getNeighbors();
         $defendingCountryName = NULL;
         do {
+          print "\n\nDigite -1 para listar as fronteiras, ou \n";
           $typedName = readline("Digite o nome de um país para atacar ou deixe em branco para não atacar ninguém:\n");
           $defendingCountryName = trim($typedName);
+          if ($defendingCountryName == "-1")
+            print "\nFronteira com: \n" . implode(" - ", array_keys($neighbors));
         } while ($defendingCountryName && !isset($neighbors[$defendingCountryName]));
 
         if ($defendingCountryName) {

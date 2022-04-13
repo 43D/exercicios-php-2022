@@ -12,6 +12,6 @@ O primeiro exercício é uma variação do jogo "War", chamado [ChuWAR, veja os 
 No segundo exercício você deve fazer o [GaloScrapper, veja os detalhes aqui](https://github.com/chuva-inc/exercicios-php-2022/tree/master/src/War).
 
 
-## Edit
+# Edit
 
 Esse repositório é destinado ao desafio da Chuva Inc.

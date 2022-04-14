@@ -50,7 +50,7 @@ class BaseCountry implements CountryInterface
     foreach ($neighbors as $contry) {
       if (array_key_exists($contry->getName(), $this->neighbors) && $contry->isConquered()) {
         unset($this->neighbors[$contry->getName()]);
-      } else if ($contry->getName() != $this->name && !$contry->isConquered()) {
+      } else if (!array_key_exists($contry->getName(), $this->neighbors) && $contry->getName() != $this->name && !$contry->isConquered()) {
         $this->neighbors += [$contry->getName() => $contry];
       }
     }

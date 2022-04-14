@@ -25,6 +25,10 @@ class ComputerPlayerCountry extends BaseCountry
     parent::__construct($name);
   }
 
+  /**
+   * Gera um número aleatório e o ultiliza para escolher um dos paises vizinhos (neighbors)
+   * ou não escolher nada.
+   */
   public function chooseToAttack(): ?CountryInterface
   {
     // @TODO

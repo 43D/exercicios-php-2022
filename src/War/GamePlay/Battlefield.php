@@ -9,6 +9,11 @@ use Galoa\ExerciciosPhp2022\War\GamePlay\Country\CountryInterface;
  */
 class Battlefield implements BattlefieldInterface
 {
+    /**
+     * Gera números aleatórios para simular um dado de 6 lados.
+     * A qunatidade números é baseado no números de tropa do próprio pais.
+     * A função também retorna os números ordenado de maior para menor
+     */
     public function rollDice(CountryInterface $country, bool $isAtacking): array
     {
         $dicerolls = [];
@@ -25,6 +30,10 @@ class Battlefield implements BattlefieldInterface
         return $dicerolls;
     }
 
+    /**
+     * Calcula os dados e computa o resultado da batalha.
+     * As tropas de cada páis são atualizadas no final do método.
+     */
     public function computeBattle(CountryInterface $attackingCountry, array $attackingDice, CountryInterface $defendingCountry, array $defendingDice): void
     {
         $troopAttacking = 0;

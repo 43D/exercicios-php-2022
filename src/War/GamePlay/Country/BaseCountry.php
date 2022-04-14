@@ -23,7 +23,8 @@ class BaseCountry implements CountryInterface
    * Builder.
    *
    * @param string $name
-   *   The name of the country.
+   * Recebe o nome do pais no construtor.
+   * Declara as variaveis com valores padrões de inicio de jogo
    */
   public function __construct(string $name)
   {
@@ -34,11 +35,16 @@ class BaseCountry implements CountryInterface
     $this->conqueredCountries = [];
   }
 
+  //Método get de name.
   public function getName(): string
   {
     return $this->name;
   }
-
+  /**
+   * Método set de Neighbors.
+   * Neighbors não recebe novos valores repetidos.
+   * Neighbors remove paises já conquistados.
+   */
   public function setNeighbors(array $neighbors): void
   {
     foreach ($neighbors as $contry) {
@@ -50,30 +56,46 @@ class BaseCountry implements CountryInterface
     }
   }
 
+  //Método get de neighbors.
   public function getNeighbors(): array
   {
     return $this->neighbors;
   }
 
+  //Método get de troops.
   public function getNumberOfTroops(): int
   {
     return $this->troops;
   }
+
+  //Método get de conquered.
   public function isConquered(): bool
   {
     return $this->conquered;
   }
+
+  /**
+   * Método conquer recebe um país conquistado.
+   * Ele atualizar as fronteiras (Neighbors) de todos com todos
+   */
   public function conquer(CountryInterface $conqueredCountry): void
   {
     $this->conqueredCountries += [$conqueredCountry->getName() => $conqueredCountry];
     $newneighbors = $conqueredCountry->getNeighbors();
     foreach ($newneighbors as $name => $contry) {
-      if (!array_key_exists($name, $this->neighbors) && $name != $this->name) {
-        $this->neighbors += [$name => $contry];
+      if (!array_key_exists($name, $this->neighbors)) {
+        if ($name != $this->name) {
+          $this->neighbors += [$name => $contry];
+        }
         $contry->setNeighbors([0 => $this, 1 => $conqueredCountry]);
       }
     }
   }
+
+  /**
+   * Decrementa a quantidade de Troops de acordo com resultados da batalha.
+   * Caso as Troops fiquem abaixo de 0, o pais é considerado conquistado (conquered) 
+   */
   public function killTroops(int $killedTroops): void
   {
     $this->troops -= $killedTroops;
@@ -82,6 +104,11 @@ class BaseCountry implements CountryInterface
       $this->conquered = true;
     }
   }
+
+  /** 
+   * Incrementa mais Troops a cada rodada.
+   * Os valores são 3 + a quantidade de paises conquistados (conqueredCountries)
+   */
   public function nextRound(): void
   {
     $total = 3 + count($this->conqueredCountries);

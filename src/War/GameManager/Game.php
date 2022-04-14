@@ -140,6 +140,7 @@ class Game
       sleep(1);
     }
     foreach ($this->getUnconqueredCountries() as $country) {
+      // A cada rodada, gera novas tropas para os país indepedentes
       $country->nextRound();
     }
   }

@@ -3,6 +3,7 @@
 namespace Galoa\ExerciciosPhp2022\WebScrapping;
 
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Common\Entity\Row;
 
 /**
@@ -40,17 +41,15 @@ class Scrapper
         $articles += [$n->childNodes[2]->childNodes[1]->childNodes[1]->nodeValue => $value];
       }
     }
-    // $articles;
-
 
     $filePath = __DIR__ . '/../../webscrapping/model.xlsx';
-
     $writer = WriterEntityFactory::createXLSXWriter();
-    // $writer = WriterEntityFactory::createODSWriter();
-    // $writer = WriterEntityFactory::createCSVWriter();
+    $writer->openToFile($filePath);
 
-    $writer->openToFile($filePath); // write data to a file or to a PHP stream
-    //$writer->openToBrowser($fileName); // stream data directly to the browser
+    $style = (new StyleBuilder())
+      ->setFontBold()
+      ->setFontSize(12)
+      ->build();
 
     $cellsTitle = [
       WriterEntityFactory::createCell('ID'),
@@ -76,9 +75,8 @@ class Scrapper
       WriterEntityFactory::createCell('Author 9 Institution')
     ];
 
-    $titleRow = WriterEntityFactory::createRow($cellsTitle);
+    $titleRow = WriterEntityFactory::createRow($cellsTitle, $style);
     $writer->addRow($titleRow);
-
 
     foreach ($articles as $a) {
       $cells = [];
@@ -92,7 +90,6 @@ class Scrapper
       $titleRow = WriterEntityFactory::createRow($cells);
       $writer->addRow($titleRow);
     }
-
 
     $writer->close();
   }

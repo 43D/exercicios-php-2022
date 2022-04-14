@@ -83,12 +83,8 @@ class BaseCountry implements CountryInterface
     $this->conqueredCountries += [$conqueredCountry->getName() => $conqueredCountry];
     $newneighbors = $conqueredCountry->getNeighbors();
     foreach ($newneighbors as $name => $contry) {
-      if (!array_key_exists($name, $this->neighbors)) {
-        if ($name != $this->name) {
-          $this->neighbors += [$name => $contry];
-        }
-        $contry->setNeighbors([0 => $this, 1 => $conqueredCountry]);
-      }
+      $this->setNeighbors([0 => $this, 1 => $conqueredCountry]);
+      $contry->setNeighbors([0 => $this, 1 => $conqueredCountry]);
     }
   }
 

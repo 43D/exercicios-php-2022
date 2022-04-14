@@ -48,7 +48,7 @@ class BaseCountry implements CountryInterface
   public function setNeighbors(array $neighbors): void
   {
     foreach ($neighbors as $contry) {
-      if (!array_key_exists($contry->getName(), $this->neighbors)) {
+      if (!array_key_exists($contry->getName(), $this->neighbors) && !$contry->isConquered()) {
         $this->neighbors += [$contry->getName() => $contry];
       } else if ($contry->isConquered()) {
         unset($this->neighbors[$contry->getName()]);
